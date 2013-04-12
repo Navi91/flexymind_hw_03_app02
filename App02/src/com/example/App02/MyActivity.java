@@ -1,54 +1,37 @@
 package com.example.App02;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 public class MyActivity extends Activity {
     /**
      * Called when the activity is first created.
      */
+
+    DisplayMetrics displayMetrics = new DisplayMetrics();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.main);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
     }
 
     public void onChangePosition(View view) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        layoutParams.topMargin = (int) (Math.random() * 1000) % 210;
-        layoutParams.leftMargin = (int) (Math.random() * 1000) % 180;
+        layoutParams.topMargin = (int) (Math.random() * (displayMetrics.heightPixels - view.getHeight()));
+        layoutParams.leftMargin = (int) (Math.random() * (displayMetrics.widthPixels - view.getWidth()));
 
         view.setLayoutParams(layoutParams);
     }
